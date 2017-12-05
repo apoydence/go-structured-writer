@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"os"
+	"path"
 	"runtime"
 	"strings"
 	"time"
@@ -67,12 +67,10 @@ func WithTimestamp() StructuredWriterOption {
 // WithCallSite returns a StructuredWriterOption that adds a "callsite" field
 // that will give the filename and linenumber of the log.
 func WithCallSite() StructuredWriterOption {
-	gopath := os.Getenv("GOPATH") + "/src/"
 	return optionFunc(func(w *StructuredWriter) {
 		w.funcs["callsite"] = func([]byte) (interface{}, error) {
 			_, fileName, lineNumber, _ := runtime.Caller(1)
-			fileName = strings.Replace(fileName, gopath, "", 1)
-			return fmt.Sprintf("%s:%d", fileName, lineNumber), nil
+			return fmt.Sprintf("%s:%d", path.Base(fileName), lineNumber), nil
 		}
 	})
 }
