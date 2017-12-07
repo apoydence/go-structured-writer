@@ -96,7 +96,7 @@ func (w *StructuredWriter) Write(data []byte) (int, error) {
 		return 0, err
 	}
 
-	return w.w.Write(data)
+	return w.w.Write(append(data, '\n'))
 }
 
 // parseData will attempt to unmarshal the data in JSON. If it does not, it

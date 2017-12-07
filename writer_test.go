@@ -36,6 +36,11 @@ func TestStructuredWriter(t *testing.T) {
 	if m["msg"] != "some log msg" {
 		t.Fatalf("expected %v to equal 'some log msg'", m["msg"])
 	}
+
+	// Must have newline as last rune
+	if b.Bytes()[b.Len()-1] != '\n' {
+		t.Fatalf("expected the last rune (%v) to be a '\\n'", b.Bytes()[b.Len()-1])
+	}
 }
 
 func TestWithFieldFunc(t *testing.T) {
