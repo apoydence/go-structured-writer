@@ -127,3 +127,25 @@ func TestWithCallSite(t *testing.T) {
 		t.Fatalf("expected callsite to be populated with filename:linenumber '%v'", m["callsite"])
 	}
 }
+
+func TestUserProvidedJSON(t *testing.T) {
+	t.Parallel()
+
+	b := bytes.Buffer{}
+	w := structured.New(&b, structured.WithCallSite())
+
+	_, err := w.Write([]byte(`{"name":"metric-name","value":99.9}`))
+	if err != nil {
+		t.Fatalf("unexpected err: %s", err)
+	}
+
+	var m map[string]interface{}
+	err = json.Unmarshal(b.Bytes(), &m)
+	if err != nil {
+		t.Fatalf("invalid json: %s", err)
+	}
+
+	if m["msg"].(map[string]interface{})["name"].(string) != "metric-name" {
+		t.Fatalf("expected %v to equal 'metric-name'", m["msg"].(map[string]interface{})["name"])
+	}
+}

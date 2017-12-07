@@ -80,7 +80,7 @@ func WithCallSite() StructuredWriterOption {
 // output is written to a single line. It trims the message of whitespace.
 func (w *StructuredWriter) Write(data []byte) (int, error) {
 	m := map[string]interface{}{
-		"msg": strings.TrimSpace(string(data)),
+		"msg": w.parseData(data),
 	}
 
 	for k, f := range w.funcs {
@@ -97,4 +97,16 @@ func (w *StructuredWriter) Write(data []byte) (int, error) {
 	}
 
 	return w.w.Write(data)
+}
+
+// parseData will attempt to unmarshal the data in JSON. If it does not, it
+// will return a string.
+func (w *StructuredWriter) parseData(data []byte) interface{} {
+	var u map[string]interface{}
+	if err := json.Unmarshal(data, &u); err != nil {
+		// User did not provide (valid) JSON
+		return strings.TrimSpace(string(data))
+	}
+
+	return u
 }
