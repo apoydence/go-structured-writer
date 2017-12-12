@@ -69,8 +69,23 @@ func WithTimestamp() StructuredWriterOption {
 func WithCallSite() StructuredWriterOption {
 	return optionFunc(func(w *StructuredWriter) {
 		w.funcs["callsite"] = func([]byte) (interface{}, error) {
-			_, fileName, lineNumber, _ := runtime.Caller(1)
-			return fmt.Sprintf("%s:%d", path.Base(fileName), lineNumber), nil
+			var (
+				fileName   string
+				lineNumber int
+			)
+			for i := 0; i < 5; i++ {
+				var ok bool
+				_, fileName, lineNumber, ok = runtime.Caller(i)
+				if ok &&
+					!strings.HasSuffix(path.Dir(fileName), "/src/log") &&
+					!strings.HasSuffix(path.Dir(fileName), "/src/github.com/apoydence/go-structured-writer") {
+					break
+				}
+			}
+
+			dirAndFile := fmt.Sprintf("%s/%s", path.Base(path.Dir(fileName)), path.Base(fileName))
+
+			return fmt.Sprintf("%s:%d", dirAndFile, lineNumber), nil
 		}
 	})
 }
