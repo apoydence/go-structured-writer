@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	structured "github.com/apoydence/go-structured-writer"
+	structured "github.com/poy/go-structured-writer"
 )
 
 func TestStructuredWriter(t *testing.T) {

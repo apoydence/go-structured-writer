@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	structured "github.com/apoydence/go-structured-writer"
+	structured "github.com/poy/go-structured-writer"
 )
 
 func ExampleWithTime() {

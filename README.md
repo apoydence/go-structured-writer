@@ -10,7 +10,7 @@ import (
 	"log"
 	"os"
 
-	structured "github.com/apoydence/go-structured-writer"
+	structured "github.com/poy/go-structured-writer"
 )
 
 func main() {
@@ -59,7 +59,7 @@ Otherwise:
 ```
 
 
-[go-doc-badge]:             https://godoc.org/github.com/apoydence/go-structured-writer?status.svg
-[go-doc]:                   https://godoc.org/github.com/apoydence/go-structured-writer
-[travis-badge]:             https://travis-ci.org/apoydence/go-structured-writer.svg?branch=master
-[travis]:                   https://travis-ci.org/apoydence/go-structured-writer?branch=master
+[go-doc-badge]:             https://godoc.org/github.com/poy/go-structured-writer?status.svg
+[go-doc]:                   https://godoc.org/github.com/poy/go-structured-writer
+[travis-badge]:             https://travis-ci.org/poy/go-structured-writer.svg?branch=master
+[travis]:                   https://travis-ci.org/poy/go-structured-writer?branch=master

@@ -78,7 +78,7 @@ func WithCallSite() StructuredWriterOption {
 				_, fileName, lineNumber, ok = runtime.Caller(i)
 				if ok &&
 					!strings.HasSuffix(path.Dir(fileName), "/src/log") &&
-					!strings.HasSuffix(path.Dir(fileName), "/src/github.com/apoydence/go-structured-writer") {
+					!strings.HasSuffix(path.Dir(fileName), "/src/github.com/poy/go-structured-writer") {
 					break
 				}
 			}
